@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">QueRico</string>
+    <string name="rico_img_desc">Rico logo img</string>">
+    <string name="login_header">Login</string>
+    <string name="register_header">Register</string>
+    <string name="email_hint">Email</string>
+    <string name="fullname_hint">Full Name</string>
+    <string name="password_hint">password</string>
+    <string name="confirm_password_hint">confirm password</string>
+    <string name="remember_me">Remember me\n</string>
+    <string name="password_forgot">Forgot password?</string>
+    <string name="dont_have_account">Don’t have an account yet? Register here</string>
+    <string name="login_with">Or Login with</string>
 </resources>

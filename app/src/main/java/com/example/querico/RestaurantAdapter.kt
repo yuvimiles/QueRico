@@ -11,14 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     private var restaurants = mutableListOf<Restaurant>()
+    private var onItemClickListener: ((Restaurant) -> Unit)? = null
 
-    // פונקציה להוספת פריט בודד
+    fun setOnItemClickListener(listener: (Restaurant) -> Unit) {
+        onItemClickListener = listener
+    }
+
     fun addItem(restaurant: Restaurant) {
         restaurants.add(restaurant)
         notifyItemInserted(restaurants.size - 1)
     }
 
-    // פונקציה להסרת פריט
     fun removeItem(position: Int) {
         if (position >= 0 && position < restaurants.size) {
             restaurants.removeAt(position)
@@ -26,7 +29,6 @@ class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewH
         }
     }
 
-    // פונקציה לעדכון פריט בודד
     fun updateItem(position: Int, restaurant: Restaurant) {
         if (position >= 0 && position < restaurants.size) {
             restaurants[position] = restaurant
@@ -34,28 +36,22 @@ class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewH
         }
     }
 
-    // פונקציה לעדכון הרשימה עם שימוש בעדכונים ספציפיים
     fun updateList(newList: List<Restaurant>) {
         val oldList = restaurants.toList()
         restaurants.clear()
         restaurants.addAll(newList)
 
-        // אם זה עדכון ראשוני
         if (oldList.isEmpty()) {
             notifyItemRangeInserted(0, newList.size)
             return
         }
 
-        // חישוב ההבדלים ושימוש בעדכונים ספציפיים
         if (newList.size > oldList.size) {
-            // נוספו פריטים
             notifyItemRangeInserted(oldList.size, newList.size - oldList.size)
         } else if (newList.size < oldList.size) {
-            // הוסרו פריטים
             notifyItemRangeRemoved(newList.size, oldList.size - newList.size)
         }
 
-        // עדכון פריטים קיימים
         val minSize = minOf(oldList.size, newList.size)
         for (i in 0 until minSize) {
             if (oldList[i] != newList[i]) {
@@ -72,7 +68,7 @@ class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewH
 
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val restaurant = restaurants[position]
-        holder.bind(restaurant)
+        holder.bind(restaurant, onItemClickListener)
     }
 
     override fun getItemCount() = restaurants.size
@@ -85,13 +81,18 @@ class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewH
         private val reviewerTextView: TextView = itemView.findViewById(R.id.tvReviewer)
         private val reviewCountTextView: TextView = itemView.findViewById(R.id.tvReviewCount)
 
-        fun bind(restaurant: Restaurant) {
+        fun bind(restaurant: Restaurant, listener: ((Restaurant) -> Unit)?) {
             nameTextView.text = restaurant.name
             locationTextView.text = restaurant.location
             ratingBar.rating = restaurant.rating
             restaurantImage.setImageResource(restaurant.imageUrl)
             reviewerTextView.text = restaurant.reviewer
             reviewCountTextView.text = restaurant.reviewCount
+
+            // הוספת onClick למרכיב
+            itemView.setOnClickListener {
+                listener?.invoke(restaurant)
+            }
         }
     }
 }

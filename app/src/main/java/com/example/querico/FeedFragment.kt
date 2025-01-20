@@ -1,4 +1,5 @@
 package com.example.querico
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,13 @@ class FeedFragment : Fragment() {
         recyclerView.apply {
             adapter = restaurantAdapter
             layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        restaurantAdapter.setOnItemClickListener { restaurant ->
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PostFragment.newInstance(restaurant))
+                .addToBackStack(null)
+                .commit()
         }
     }
 

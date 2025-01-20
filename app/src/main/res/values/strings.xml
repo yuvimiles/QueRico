@@ -3,6 +3,10 @@
     <string name="rico_img_desc">Rico logo img</string>">
     <string name="password_reset_header">Password Reset</string>
     <string name="reset_code_hint">Enter the code sent</string>
+    <string name="create_post_header">Create New Post</string>
+    <string name="restaurant_name_hint">Restaurant Name</string>
+    <string name="location_hint">Location</string>
+    <string name="content_hint">Enter Content Here</string>
     <string name="login_header">Login</string>
     <string name="register_header">Register</string>
     <string name="email_hint">Email</string>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1077075055533",
+    "project_id": "querico-6dd96",
+    "storage_bucket": "querico-6dd96.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077075055533:android:52dd040fd5d874c9664724",
+        "android_client_info": {
+          "package_name": "com.example.querico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs5TLx0gdxNq3W3pWPmY_8NahayYERKlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

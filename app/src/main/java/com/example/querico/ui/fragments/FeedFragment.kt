@@ -1,4 +1,4 @@
-package com.example.querico
+package com.example.querico.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.querico.ui.viewmodel.FeedViewModel
+import com.example.querico.R
+import com.example.querico.ui.adapters.RestaurantAdapter
 
 class FeedFragment : Fragment() {
 

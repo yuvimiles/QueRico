@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/RicoTheme"
-    tools:context=".LoginFragment">
-
+    tools:context=".ui.fragments.LoginFragment"
+    tools:ignore="LayoutFidelity,RenderProblem"
+    tools:theme="@style/Theme.MaterialComponents.Light">
 
     <TextView
         android:id="@+id/login_header"
@@ -37,7 +37,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_rico_img" />
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,22 +53,24 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Email Input Field -->
+            <!-- Email Input Field - שיפור ניגודיות -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_email_input_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email_hint">
+                android:hint="@string/email_hint"
+                app:hintTextColor="@android:color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_email_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="@android:color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Password Input Field -->
+            <!-- Password Input Field - שיפור ניגודיות -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_password_hint_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -77,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/password_hint"
+                app:hintTextColor="@android:color/black"
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -84,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="#000000" />
+                    android:textColor="@android:color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -116,7 +118,8 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
-            <!-- Login Button -->
+
+            <!-- Login Button - שיפור טקסט כפול -->
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
@@ -126,7 +129,8 @@
                 android:backgroundTint="@color/RicoTheme"
                 android:text="@string/login_header"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:contentDescription="@string/login_button_desc" />
 
             <TextView
                 android:id="@+id/login_dont_have_account"
@@ -142,35 +146,29 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/login_with"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:contentDescription="@string/login_with_desc" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <!-- Google Login Button -->
+                <!-- Google Login Button - הגדלת אזור המגע והסרת הטקסט הקבוע -->
                 <Button
                     android:id="@+id/login_google_login_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:minWidth="88dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:backgroundTint="@color/RicoTheme"
-                    android:isScrollContainer="false"
-                    android:text="Google"
+                    android:text="@string/google_login"
                     android:textColor="@color/black"
+                    android:contentDescription="@string/google_login_desc"
                     app:icon="@drawable/ic_google"
-                    app:iconTintMode="multiply" />
-                <!-- Facebook Login Button -->
-                <Button
-                    android:id="@+id/login_facebook_login_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/RicoTheme"
-                    android:elevation="4dp"
-                    android:text="Facebook"
-                    android:textColor="@color/black"
-                    app:icon="@drawable/ic_facebook"
                     app:iconTintMode="multiply" />
 
             </LinearLayout>
@@ -179,4 +177,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout >
+</androidx.constraintlayout.widget.ConstraintLayout>

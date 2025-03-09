@@ -1,4 +1,4 @@
-package com.example.querico
+package com.example.querico.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.querico.R
+import com.example.querico.data.model.Restaurant
+import com.squareup.picasso.Picasso
 
 class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
@@ -85,9 +88,24 @@ class RestaurantAdapter : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewH
             nameTextView.text = restaurant.name
             locationTextView.text = restaurant.location
             ratingBar.rating = restaurant.rating
-            restaurantImage.setImageResource(restaurant.imageUrl)
             reviewerTextView.text = restaurant.reviewer
             reviewCountTextView.text = restaurant.reviewCount
+
+            // טעינת תמונה - בדיקה אם יש URL מרוחק או משאב מקומי
+            if (restaurant.imageUrl.isNotEmpty()) {
+                // יש לנו URL מרוחק - משתמשים ב-Picasso
+                Picasso.get()
+                    .load(restaurant.imageUrl)
+                    .placeholder(R.drawable.restaurant1)  // תמונת ברירת מחדל בזמן טעינה
+                    .error(R.drawable.restaurant1)        // תמונה שתוצג במקרה של שגיאה
+                    .into(restaurantImage)
+            } else if (restaurant.imageResourceId != 0) {
+                // יש לנו משאב מקומי
+                restaurantImage.setImageResource(restaurant.imageResourceId)
+            } else {
+                // אין תמונה - מציגים תמונת ברירת מחדל
+                restaurantImage.setImageResource(R.drawable.restaurant1)
+            }
 
             // הוספת onClick למרכיב
             itemView.setOnClickListener {

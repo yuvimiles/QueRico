@@ -1,4 +1,4 @@
-package com.example.querico
+package com.example.querico.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.example.querico.R
+import com.example.querico.data.model.Restaurant
 
 class PostFragment : Fragment() {
     private lateinit var restaurantImage: ImageView
@@ -57,8 +60,26 @@ class PostFragment : Fragment() {
             ratingBar.rating = args.getFloat(ARG_RATING, 0f)
             ratingBy.text = "Rating by ${args.getString(ARG_REVIEWER, "")}"
             description.text = args.getString(ARG_DESCRIPTION, "")
-            args.getInt(ARG_IMAGE).let { imageRes ->
-                restaurantImage.setImageResource(imageRes)
+
+            // טיפול בתמונה
+            if (args.containsKey(ARG_IMAGE_RES_ID) && args.getInt(ARG_IMAGE_RES_ID) != 0) {
+                // מזהה משאב
+                val imageResId = args.getInt(ARG_IMAGE_RES_ID)
+                restaurantImage.setImageResource(imageResId)
+            } else {
+                // URL של תמונה
+                val imageUrl = args.getString(ARG_IMAGE_URL)
+                if (!imageUrl.isNullOrEmpty()) {
+                    // טען תמונה באמצעות Glide
+                    Glide.with(requireContext())
+                        .load(imageUrl)
+                        .placeholder(R.drawable.ic_placeholder_image) // הוסף משאב placeholder אמיתי
+                        .error(R.drawable.ic_error_image) // הוסף משאב error אמיתי
+                        .into(restaurantImage)
+                } else {
+                    // אם אין URL ואין משאב תמונה, הצג תמונת ברירת מחדל
+                    restaurantImage.setImageResource(R.drawable.ic_placeholder_image) // הוסף משאב ברירת מחדל אמיתי
+                }
             }
         }
     }
@@ -69,7 +90,8 @@ class PostFragment : Fragment() {
         private const val ARG_RATING = "arg_rating"
         private const val ARG_REVIEWER = "arg_reviewer"
         private const val ARG_DESCRIPTION = "arg_description"
-        private const val ARG_IMAGE = "arg_image"
+        private const val ARG_IMAGE_URL = "arg_image_url"
+        private const val ARG_IMAGE_RES_ID = "arg_image_res_id"
 
         fun newInstance(restaurant: Restaurant) = PostFragment().apply {
             arguments = Bundle().apply {
@@ -77,8 +99,16 @@ class PostFragment : Fragment() {
                 putString(ARG_LOCATION, restaurant.location)
                 putFloat(ARG_RATING, restaurant.rating)
                 putString(ARG_REVIEWER, restaurant.reviewer)
-                putString(ARG_DESCRIPTION, "Lorem ipsum dolor sit amet...")
-                putInt(ARG_IMAGE, restaurant.imageUrl)
+                putString(ARG_DESCRIPTION, restaurant.description)
+
+                // טיפול בתמונה - הפרדה בין URL לבין משאב מקומי
+                if (restaurant.imageResourceId != 0) {
+                    // אם יש מזהה משאב תמונה (drawable resource ID)
+                    putInt(ARG_IMAGE_RES_ID, restaurant.imageResourceId)
+                } else {
+                    // אחרת שמור את ה-URL של התמונה
+                    putString(ARG_IMAGE_URL, restaurant.imageUrl)
+                }
             }
         }
     }

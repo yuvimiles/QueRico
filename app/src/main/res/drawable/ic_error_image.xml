@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+    <!-- רקע אפור בהיר עם גוון אדום -->
+    <rect width="200" height="150" fill="#ffe0e0"/>
+
+    <!-- סמל שגיאה -->
+    <circle cx="100" cy="60" r="25" fill="#ff5252" />
+    <rect x="98" y="45" width="4" height="20" fill="white" />
+    <circle cx="100" cy="75" r="2" fill="white" />
+
+    <!-- טקסט -->
+    <text x="100" y="110" font-family="Arial" font-size="14" text-anchor="middle" fill="#d32f2f">Image Error</text>
+</svg>

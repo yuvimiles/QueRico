@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.querico.ui.fragments.LoginFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,9 +18,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         if (savedInstanceState == null) {
-            val feedFragment = FeedFragment()
+            val loginFragment = LoginFragment()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, feedFragment)
+                .add(R.id.fragment_container, loginFragment)
                 .commit()
         }
     }

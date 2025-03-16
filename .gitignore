@@ -12,7 +12,7 @@
 /captures
 .externalNativeBuild
 local.properties
-
+/node_modules
 # Generated files
 bin/
 gen/

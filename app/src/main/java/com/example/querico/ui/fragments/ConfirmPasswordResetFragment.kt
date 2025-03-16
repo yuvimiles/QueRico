@@ -1,5 +1,6 @@
 package com.example.querico.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.querico.R
+import com.example.querico.activities.LoginActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -133,9 +135,11 @@ class ConfirmPasswordResetFragment : Fragment() {
     }
 
     private fun navigateToLogin() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, LoginFragment.newInstance())
-            .commit()
+        // Navigate to LoginActivity instead of LoginFragment
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP // Clear the activity stack
+        startActivity(intent)
+        requireActivity().finish() // Close current activity
     }
 
     companion object {

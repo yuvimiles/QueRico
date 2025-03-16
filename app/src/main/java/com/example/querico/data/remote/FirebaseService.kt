@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.example.querico.data.model.Restaurant
 import com.example.querico.data.model.User
+import com.example.querico.data.firebase.UserFB
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,6 +25,9 @@ class FirebaseService {
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
+
+    // מופע של המחלקה החדשה לניהול משתמשים
+    private val userFB = UserFB()
 
     // אוספים בבסיס הנתונים
     private val usersCollection = firestore.collection("users")
@@ -47,34 +51,6 @@ class FirebaseService {
     fun getCurrentUser(): FirebaseUser? = auth.currentUser
 
     /**
-     * התחברות עם אימייל וסיסמה
-     */
-    fun loginWithEmailAndPassword(email: String, password: String): Task<com.google.firebase.auth.AuthResult> {
-        return auth.signInWithEmailAndPassword(email, password)
-    }
-
-    /**
-     * יצירת משתמש חדש עם אימייל וסיסמה
-     */
-    fun createUserWithEmailAndPassword(email: String, password: String): Task<com.google.firebase.auth.AuthResult> {
-        return auth.createUserWithEmailAndPassword(email, password)
-    }
-
-    /**
-     * שליחת אימייל לאיפוס סיסמה
-     */
-    fun sendPasswordResetEmail(email: String): Task<Void> {
-        return auth.sendPasswordResetEmail(email)
-    }
-
-    /**
-     * אישור איפוס סיסמה עם קוד אימות
-     */
-    fun confirmPasswordReset(code: String, newPassword: String): Task<Void> {
-        return auth.confirmPasswordReset(code, newPassword)
-    }
-
-    /**
      * התנתקות משתמש
      */
     fun logout() {
@@ -85,9 +61,25 @@ class FirebaseService {
 
     /**
      * שמירת נתוני משתמש ב-Firestore
+     * משתמש בגישה הקיימת (Task-based)
      */
     fun saveUser(user: User): Task<Void> {
         return usersCollection.document(user.id).set(user)
+    }
+
+    /**
+     * שמירת נתוני משתמש עם callback
+     * משתמש ב-UserFB לשמירה עם callback
+     */
+    fun saveUserWithCallback(user: User, callback: (Boolean) -> Unit) {
+        userFB.userCollection(
+            email = user.email,
+            img = user.photoUrl ?: "",
+            uid = user.id,
+            name = user.name
+        ) { isSuccessful ->
+            callback(isSuccessful)
+        }
     }
 
     /**
@@ -107,6 +99,13 @@ class FirebaseService {
                 null
             }
         }
+    }
+
+    /**
+     * קבלת נתוני משתמש לפי מזהה עם callback
+     */
+    fun getUserByIdWithCallback(userId: String, callback: (User?) -> Unit) {
+        userFB.getUserByUid(userId, callback)
     }
 
     /**

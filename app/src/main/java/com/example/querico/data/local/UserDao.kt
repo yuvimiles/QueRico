@@ -100,6 +100,7 @@ interface UserDao {
      * @param id מזהה המשתמש
      * @param photoUrl כתובת התמונה החדשה
      */
+
     @Query("UPDATE users SET photoUrl = :photoUrl WHERE id = :id")
     suspend fun updateUserPhoto(id: String, photoUrl: String?)
 
@@ -111,16 +112,5 @@ interface UserDao {
     @Query("UPDATE users SET lastLoginTime = :lastLoginTime WHERE id = :id")
     suspend fun updateLastLoginTime(id: String, lastLoginTime: Long)
 
-    /**
-     * מחזיר את כל המשתמשים
-     * בד"כ לשימוש אדמיניסטרטיבי בלבד
-     */
-    @Query("SELECT * FROM users ORDER BY name ASC")
-    fun getAllUsers(): LiveData<List<User>>
 
-    /**
-     * מחזיר את מספר המשתמשים בבסיס הנתונים
-     */
-    @Query("SELECT COUNT(*) FROM users")
-    suspend fun getUserCount(): Int
 }

@@ -7,12 +7,14 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/package-lock.json
+/package.json
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 local.properties
-
+/node_modules
 # Generated files
 bin/
 gen/

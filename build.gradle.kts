@@ -3,7 +3,7 @@ plugins {
     id("com.android.application") version "8.7.3" apply false
     id("org.jetbrains.kotlin.android") version "1.9.24" apply false
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version "2.0.1" apply false
-    id("org.jetbrains.kotlin.kapt") version "1.9.24" apply false  // שם מלא
-    id("org.jetbrains.kotlin.plugin.parcelize") version "1.9.24" apply false  // שם מלא - זה השינוי העיקרי
+    id("org.jetbrains.kotlin.kapt") version "1.9.24" apply false
+    id("org.jetbrains.kotlin.plugin.parcelize") version "1.9.24" apply false
     id("com.google.gms.google-services") version "4.4.2" apply false
 }

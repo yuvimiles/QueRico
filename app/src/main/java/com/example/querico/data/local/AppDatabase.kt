@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.querico.data.model.Restaurant
 import com.example.querico.data.model.User
+import com.example.querico.RicoApplication
 
 /**
  * בסיס הנתונים המקומי של האפליקציה המבוסס על Room.

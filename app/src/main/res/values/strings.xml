@@ -20,16 +20,11 @@
     <string name="login_with">Or Login with</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_button_desc">התחבר לחשבון</string>
-    <string name="google_login">Google</string>
-    <string name="google_login_desc">התחבר עם חשבון Google</string>
-    <string name="login_with_desc">או התחבר באמצעות</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="back_to_login">Back to Login</string>
     <string name="upload_photo">Upload Photo</string>
-    <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="google_logo">Google Logo</string>
     <string name="don_t_have_an_account_sign_up_now">Don\'t have an account? Sign up now</string>
-    <string name="default_web_client_id">1077075055533-kh3d09f64ksvqcdlcvvlcp1k982hqet5.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">1077075055533-if4gi424abq0pcdnf4clkabth4fbkekc.apps.googleusercontent.com</string>
     <string name="save_changes">Save Changes</string>
     <string name="cancel">Cancle</string>"
     <string name="password_info" />
@@ -55,6 +50,8 @@
     <string name="main_label_map_fragment" />
     <string name="settings" />
     <string name="saved_posts">Saved Posts</string>
+    <string name="google_logo">Google logo</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
 
 
 </resources>

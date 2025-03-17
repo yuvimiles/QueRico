@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="cancel_changes_button" type="id" />
-    <item name="save_profile_changes_button" type="id" />
-    <item name="show_confirm_password_button" type="id" />
-    <item name="edit_profile_confirm_password" type="id" />
-    <item name="show_password_button" type="id" />
-    <item name="edit_profile_password" type="id" />
-    <item name="edit_profile_email_input_text" type="id" />
-    <item name="edit_profile_email_input_hint" type="id" />
-    <item name="edit_profile_name_input_text" type="id" />
-    <item name="edit_profile_name_input_hint" type="id" />
-    <item name="change_profile_image_button" type="id" />
-    <item name="edit_profile_image" type="id" />
-    <item name="edit_rating_bar" type="id" />
-    <item name="edit_post_image_button" type="id" />
-    <item name="edit_post_restaurant_name_input_hint" type="id" />
-    <item name="edit_post_restaurant_name_input_text" type="id" />
-    <item name="edit_post_location_input_hint" type="id" />
-    <item name="edit_post_location_input_text" type="id" />
-    <item name="edit_post_content" type="id">edit content</item>
+    <string name="cancel_changes_button">Cancel</string>
+    <string name="save_profile_changes_button">Save profile</string>
+    <string name="show_confirm_password_button">Confirm</string>
+    <string name="edit_profile_confirm_password">Confirm edit</string>
+    <string name="show_password_button">Show</string>
+    <string name="edit_profile_password">Edit</string>
+    <string name="edit_post_restaurant_name">Edit restaurant</string>
+    <string name="edit_post_location">Edit location</string>
+    <string name="edit_post_content">Edit content</string>
 </resources>

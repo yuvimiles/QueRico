@@ -1,34 +1,30 @@
 package com.example.querico
 
 import android.app.Application
-import com.google.firebase.FirebaseApp
-import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
-import com.google.firebase.auth.FirebaseAuth
-import com.squareup.picasso.Picasso
+import android.content.Context
+import com.example.querico.Model.ModelRoom.AppDB
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
 
 class RicoApplication : Application() {
+    companion object {
+        private const val THREAD_AMOUNT = 4
+        private val executorService: ExecutorService = Executors.newFixedThreadPool(THREAD_AMOUNT)
+        private lateinit var instance: RicoApplication;
+
+        fun getExecutorService(): ExecutorService {
+            return this.executorService;
+        }
+
+        fun getInstance(): Context {
+            return instance
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        // אתחול Firebase
-        FirebaseApp.initializeApp(this)
-
-        val firebaseAppCheck = FirebaseAppCheck.getInstance()
-        firebaseAppCheck.installAppCheckProviderFactory(
-            PlayIntegrityAppCheckProviderFactory.getInstance()
-        )
-
-        FirebaseAuth.getInstance().firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
-        FirebaseAuth.getInstance().useAppLanguage()
-
-        // אתחול Picasso
-        val picasso = Picasso.Builder(this)
-            .indicatorsEnabled(false)
-            .loggingEnabled(false)
-            .build()
-
-        Picasso.setSingletonInstance(picasso)
+        instance = this
     }
 }

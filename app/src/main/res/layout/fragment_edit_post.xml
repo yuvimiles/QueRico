@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/addPostBackground"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".Fragments.EditPostFragment"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:text="@string/edit_post_header"
+        />
+
+    <ImageButton
+        android:id="@+id/edit_post_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:contentDescription="Edit Photo"
+        android:focusable="true"
+        android:src="@drawable/ic_add_image"
+        android:padding="24dp"
+        />
+
+    <RatingBar
+        android:id="@+id/edit_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="0.5"
+        android:isIndicator="false"
+        android:layout_centerInParent="true" />
+
+    <!-- Restaurant Name Input Field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_post_restaurant_name_input_hint"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/restaurant_name_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_post_restaurant_name_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Location Input Field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_post_location_input_hint"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/location_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_post_location_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/edit_post_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|start"
+        android:hint="@string/content_hint"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:minLines="3"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/save_post_changes_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/RicoTheme"
+        android:text="@string/save_changes"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+</LinearLayout>

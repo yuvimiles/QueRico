@@ -3,9 +3,8 @@ package com.example.querico.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.util.Patterns
-import android.view.View
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -15,41 +14,24 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.querico.Constants
+import com.example.querico.Model.Entities.UserEntity
 import com.example.querico.R
-import com.example.querico.data.model.User
-import com.example.querico.ui.viewmodels.RegisterUserViewModel
+import com.example.querico.ViewModel.RegisterUserViewModel
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
 class RegisterActivity : AppCompatActivity() {
-
-    // UI elements
-    private lateinit var fullNameEditText: TextInputEditText
-    private lateinit var fullNameInputLayout: TextInputLayout
-    private lateinit var emailEditText: TextInputEditText
-    private lateinit var emailInputLayout: TextInputLayout
-    private lateinit var passwordEditText: TextInputEditText
-    private lateinit var passwordInputLayout: TextInputLayout
-    private lateinit var confirmPasswordEditText: TextInputEditText
-    private lateinit var confirmPasswordInputLayout: TextInputLayout
-    private lateinit var registerButton: Button
-    private lateinit var backButton: Button
-    private lateinit var profileImageView: ImageView
-    private lateinit var uploadImageButton: ImageButton
-    private var progressBar: ProgressBar? = null
-
-    // Image upload variables
+    private lateinit var auth: FirebaseAuth
     private var imageUri: Uri? = null
-    private var imageUrl: String = ""
+    private lateinit var registerUserViewModel: RegisterUserViewModel
+    private lateinit var imageUrlRef: String
+    private lateinit var profileImageView: ImageView
+    private lateinit var progressBar: ProgressBar
 
-    // ViewModel
-    private lateinit var registerViewModel: RegisterUserViewModel
-
-    // Tag for logging
-    private val TAG = "RegisterActivity"
-
-    // Image picker launcher
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
@@ -63,199 +45,133 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Get ViewModel
-        registerViewModel = ViewModelProvider(this)[RegisterUserViewModel::class.java]
+        auth = Firebase.auth
+        // Get ViewModel instance
+        registerUserViewModel = ViewModelProvider(this)[RegisterUserViewModel::class.java]
 
-        // Initialize UI
-        initializeViews()
+        // Initialize default image URL (you can replace this with your default image URL)
+        imageUrlRef = "https://firebasestorage.googleapis.com/v0/b/querico-app.appspot.com/o/default_profile.jpg?alt=media"
 
-        // Set up listeners
-        setupListeners()
-    }
-
-    private fun initializeViews() {
-        // Initialize form components
-        fullNameEditText = findViewById(R.id.register_fullname_input_text)
-        fullNameInputLayout = findViewById(R.id.register_fullname_input_hint)
-        emailEditText = findViewById(R.id.register_email_input_text)
-        emailInputLayout = findViewById(R.id.register_email_input_hint)
-        passwordEditText = findViewById(R.id.register_password_input_text)
-        passwordInputLayout = findViewById(R.id.register_password_input_hint)
-        confirmPasswordEditText = findViewById(R.id.register_confirm_password_input_text)
-        confirmPasswordInputLayout = findViewById(R.id.register_confirm_password_input_hint)
-        registerButton = findViewById(R.id.register_button)
-        backButton = findViewById(R.id.register_back_button)
+        // Get UI references
+        val fullNameEditText: TextInputEditText = findViewById(R.id.register_fullname_input_text)
+        val emailEditText: TextInputEditText = findViewById(R.id.register_email_input_text)
+        val passwordEditText: TextInputEditText = findViewById(R.id.register_password_input_text)
+        val confirmPasswordEditText: TextInputEditText = findViewById(R.id.register_confirm_password_input_text)
         profileImageView = findViewById(R.id.register_profile_image)
-        uploadImageButton = findViewById(R.id.register_upload_image_button)
+        val uploadImageButton: ImageButton = findViewById(R.id.register_upload_image_button)
+        val registerButton: Button = findViewById(R.id.register_button)
+        val backButton: Button = findViewById(R.id.register_back_button)
+        progressBar = findViewById(R.id.register_progress_bar)
 
-        // ProgressBar - אם קיים ב-layout
-        try {
-            progressBar = findViewById(R.id.register_progress_bar)
-        } catch (e: Exception) {
-            Log.w(TAG, "ProgressBar not found in layout: ${e.message}")
+        // Set upload image button click listener
+        uploadImageButton.setOnClickListener {
+            imagePicker.launch("image/*")
         }
-    }
 
-    private fun setupListeners() {
-        // Register button
+        // Set register button click listener
         registerButton.setOnClickListener {
-            if (validateInput()) {
-                registerUser()
+            // Get user input
+            val fullName = fullNameEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString()
+            val confirmPassword = confirmPasswordEditText.text.toString()
+
+            // Validate user input
+            if (validate(email, password, confirmPassword, fullName)) {
+                // Show progress bar
+                progressBar.visibility = android.view.View.VISIBLE
+
+                // Create user entity and register
+                val user = UserEntity("", fullName, imageUrlRef, email)
+                registerUserViewModel.register(user, password) { isSuccessful ->
+                    // Hide progress bar
+                    progressBar.visibility = android.view.View.GONE
+
+                    if (isSuccessful) {
+                        // Show success message
+                        Toast.makeText(
+                            this,
+                            "Registration successful",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Navigate to login activity
+                        val loginIntent = Intent(applicationContext, LoginActivity::class.java)
+                        startActivity(loginIntent)
+                        finish()
+                    } else {
+                        // Show failure message
+                        Toast.makeText(
+                            this,
+                            "Registration failed. Please try again",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please fill in all fields correctly",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
-        // Back button
+        // Set back button click listener
         backButton.setOnClickListener {
-            navigateToLogin()
-        }
-
-        // Image selection
-        uploadImageButton.setOnClickListener {
-            imagePicker.launch("image/*")
+            val loginIntent = Intent(applicationContext, LoginActivity::class.java)
+            startActivity(loginIntent)
+            finish()
         }
     }
 
     private fun uploadImage() {
+        progressBar.visibility = android.view.View.VISIBLE
+
         imageUri?.let {
             val storageReference = FirebaseStorage.getInstance()
                 .getReference("profile_images/${System.currentTimeMillis()}.jpg")
 
-            // Show loading state
-            showLoading(true)
-            Toast.makeText(this, "מעלה תמונה...", Toast.LENGTH_SHORT).show()
-
             storageReference.putFile(it).addOnSuccessListener { taskSnapshot ->
-                // Image uploaded successfully
-                Toast.makeText(this, "התמונה הועלתה בהצלחה", Toast.LENGTH_SHORT).show()
-
-                // Get the URL of the uploaded image
+                // Get the download URL of the uploaded image
                 storageReference.downloadUrl.addOnSuccessListener { downloadUri ->
-                    imageUrl = downloadUri.toString()
+                    imageUrlRef = downloadUri.toString()
 
-                    // Load the image into ImageView
-                    try {
-                        Glide.with(this).load(imageUrl).into(profileImageView)
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Failed to load image with Glide: ${e.message}")
-                    }
+                    // Load the image into ImageView using Glide
+                    Glide.with(this).load(imageUrlRef).into(profileImageView)
 
-                    showLoading(false)
+                    Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = android.view.View.GONE
                 }.addOnFailureListener { e ->
-                    Toast.makeText(this, "שגיאה בקבלת כתובת התמונה: ${e.message}", Toast.LENGTH_SHORT).show()
-                    showLoading(false)
+                    // Handle failed download URL retrieval
+                    Toast.makeText(this, "Failed to get download URL: ${e.message}", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = android.view.View.GONE
                 }
             }.addOnFailureListener { e ->
-                Toast.makeText(this, "שגיאה בהעלאת התמונה: ${e.message}", Toast.LENGTH_SHORT).show()
-                showLoading(false)
+                // Handle failed upload
+                Toast.makeText(this, "Upload failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = android.view.View.GONE
             }
         }
     }
 
-    private fun validateInput(): Boolean {
-        val fullName = fullNameEditText.text.toString().trim()
-        val email = emailEditText.text.toString().trim()
-        val password = passwordEditText.text.toString()
-        val confirmPassword = confirmPasswordEditText.text.toString()
+    private fun validate(
+        email: String,
+        password: String,
+        confirmPassword: String,
+        fullName: String
+    ): Boolean {
+        val isEmailValid = isValidEmail(email)
+        val isPasswordValid = password.isNotEmpty()
+        val isPasswordLongEnough = password.length >= Constants.PASS_MIN_LENGTH
+        val doPasswordsMatch = password == confirmPassword
+        val isFullNameValid = fullName.isNotEmpty()
 
-        // Reset previous error messages
-        fullNameInputLayout.error = null
-        emailInputLayout.error = null
-        passwordInputLayout.error = null
-        confirmPasswordInputLayout.error = null
-
-        // Validation
-        if (fullName.isEmpty()) {
-            fullNameInputLayout.error = "נא להזין שם מלא"
-            return false
-        }
-
-        if (email.isEmpty()) {
-            emailInputLayout.error = "נא להזין כתובת אימייל"
-            return false
-        }
-
-        if (!isValidEmail(email)) {
-            emailInputLayout.error = "נא להזין כתובת אימייל תקינה"
-            return false
-        }
-
-        if (password.isEmpty()) {
-            passwordInputLayout.error = "נא להזין סיסמה"
-            return false
-        }
-
-        if (password.length < 6) {
-            passwordInputLayout.error = "הסיסמה חייבת להכיל לפחות 6 תווים"
-            return false
-        }
-
-        if (confirmPassword.isEmpty()) {
-            confirmPasswordInputLayout.error = "נא לאשר את הסיסמה"
-            return false
-        }
-
-        if (password != confirmPassword) {
-            confirmPasswordInputLayout.error = "הסיסמאות אינן תואמות"
-            return false
-        }
-
-        return true
-    }
-
-    private fun registerUser() {
-        val fullName = fullNameEditText.text.toString().trim()
-        val email = emailEditText.text.toString().trim()
-        val password = passwordEditText.text.toString()
-
-        // הצגת מצב טעינה
-        showLoading(true)
-
-        // יצירת אובייקט User עם הנתונים שהוזנו
-        val user = User(
-            id = "", // יוגדר אוטומטית ע"י Firebase
-            name = fullName,
-            email = email,
-            photoUrl = if (imageUrl.isNotEmpty()) imageUrl else null,
-            lastLoginTime = System.currentTimeMillis()
-        )
-
-        // קריאה ל-ViewModel לרישום המשתמש
-        registerViewModel.register(user, password) { isSuccessful ->
-            showLoading(false)
-
-            if (isSuccessful) {
-                // הרשמה הצליחה
-                Toast.makeText(this, "ההרשמה הושלמה בהצלחה!", Toast.LENGTH_SHORT).show()
-                // מעבר למסך התחברות
-                navigateToLogin()
-            } else {
-                // הרשמה נכשלה
-                Toast.makeText(this, "ההרשמה נכשלה. אנא נסה שוב או בדוק את הפרטים שהזנת.", Toast.LENGTH_LONG).show()
-            }
-        }
+        return isEmailValid && isPasswordValid && isPasswordLongEnough && doPasswordsMatch && isFullNameValid
     }
 
     private fun isValidEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    private fun navigateToLogin() {
-        // ניתן להשתמש ב-Intent ספציפי למסך ההתחברות שלך
-        finish() // סגירת מסך ההרשמה וחזרה למסך הקודם (שהוא כנראה מסך התחברות)
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        // הפעלה או ביטול של כפתור ההרשמה
-        registerButton.isEnabled = !isLoading
-
-        // הצגה או הסתרה של מחוון הטעינה אם קיים
-        progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
-
-        // אפשר גם לשנות את הטקסט על הכפתור בזמן טעינה
-        if (isLoading) {
-            registerButton.text = "מבצע רישום..."
-        } else {
-            registerButton.text = getString(R.string.register_header)
-        }
+        val emailPattern = android.util.Patterns.EMAIL_ADDRESS
+        return emailPattern.matcher(email).matches()
     }
 }

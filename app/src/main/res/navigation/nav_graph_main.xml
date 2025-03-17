@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.querico.Fragments.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/uploadAPostFragment"
+        android:name="com.example.querico.Fragments.UploadAPostFragment"
+        android:label="UploadAPetFragment" />
+
+    <action
+        android:id="@+id/action_global_UploadAPostFragment"
+        app:destination="@id/uploadAPostFragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.querico.Fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <action
+        android:id="@+id/action_global_mapFragment"
+        app:destination="@id/mapFragment" />
+    <fragment
+        android:id="@+id/myUploadsFragment"
+        android:name="com.example.querico.Fragments.MyUploadsFragment"
+        android:label="fragment_my_uploads"
+        tools:layout="@layout/fragment_my_uploads" />
+    <action
+        android:id="@+id/action_global_myUploadsFragment"
+        app:destination="@id/myUploadsFragment" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.querico.Fragments.EditPostFragment"
+        android:label="EditPostFragment" />
+    <action
+        android:id="@+id/action_global_editPostFragment"
+        app:destination="@id/editPostFragment">
+        <argument
+            android:name="post"
+            app:argType="com.example.querico.Model.Entities.PostEntity"/>
+    </action>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.querico.Fragments.EditProfileFragment"
+        android:label="EditProfileFragment" />
+    <action
+        android:id="@+id/action_global_editProfileFragment"
+        app:destination="@id/editProfileFragment" />
+    <fragment
+        android:id="@+id/singlePostCardFragment"
+        android:name="com.example.querico.Fragments.SinglePostCardFragment"
+        android:label="SinglePostCardFragment" />
+    <action
+        android:id="@+id/action_global_singlePostCardFragment"
+        app:destination="@id/singlePostCardFragment" >
+        <argument
+            android:name="post"
+            app:argType="com.example.querico.Model.Entities.PostEntity"/>
+    </action>
+</navigation>

@@ -61,6 +61,10 @@ dependencies {
 
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     kapt("androidx.room:room-compiler:2.6.1")
 
 
@@ -71,7 +75,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation ("com.google.firebase:firebase-auth:22.3.1")
-    implementation ("com.google.firebase:firebase-appcheck-debug:17.0.1")
+
     implementation ("com.google.firebase:firebase-appcheck:17.0.0")
     implementation ("com.google.firebase:firebase-appcheck-playintegrity:17.0.0")
 

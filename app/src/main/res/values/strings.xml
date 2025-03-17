@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">QueRico</string>
-    <string name="rico_img_desc">Rico logo img</string>">
+    <string name="rico_img_desc">Rico logo img</string>
     <string name="password_reset_header">Password Reset</string>
     <string name="reset_code_hint">Enter the code sent</string>
     <string name="create_post_header">Create New Post</string>
@@ -18,7 +18,6 @@
     <string name="password_forgot">Forgot password?</string>
     <string name="dont_have_account">Don’t have an account yet? Register here</string>
     <string name="login_with">Or Login with</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_button_desc">התחבר לחשבון</string>
     <string name="google_login">Google</string>
@@ -37,11 +36,11 @@
     <string name="show_password" />
     <string name="name_hint" />
     <string name="change_photo" />
-    <string name="edit_profile_header" />
-    <string name="edit_post_header" />
+    <string name="edit_profile_header">Edit Profile</string>
+    <string name="edit_post_header">Edit Post</string>
     <string name="map_tap_marker_info" />
     <string name="my_uploads_header" />
-    <string name="no_posts_yet" />
+    <string name="no_posts_yet" >No post yet</string>
     <string name="delete">delete</string>
     <string name="restaurant_image" />
     <string name="edit" />

@@ -13,4 +13,10 @@
     <item name="change_profile_image_button" type="id" />
     <item name="edit_profile_image" type="id" />
     <item name="edit_rating_bar" type="id" />
+    <item name="edit_post_image_button" type="id" />
+    <item name="edit_post_restaurant_name_input_hint" type="id" />
+    <item name="edit_post_restaurant_name_input_text" type="id" />
+    <item name="edit_post_location_input_hint" type="id" />
+    <item name="edit_post_location_input_text" type="id" />
+    <item name="edit_post_content" type="id">edit content</item>
 </resources>

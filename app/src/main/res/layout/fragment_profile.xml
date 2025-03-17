@@ -32,92 +32,126 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_header">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Edit Button in Top Right Corner - No content description as per request -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_profile_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                app:icon="@drawable/ic_edit"
+                android:contentDescription="Edit profile"
+                app:iconGravity="textStart"
+                app:iconTint="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/profile_image_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:contentDescription="Profile picture"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- User Info -->
+            <TextView
+                android:id="@+id/profile_user_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginTop="12dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_image_view"
+                tools:text="John Doe" />
 
-                <ImageView
-                    android:id="@+id/profile_image_view"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_placeholder_image"
-                    android:contentDescription="@string/profile_picture" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp">
-
-                    <TextView
-                        android:id="@+id/profile_user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        tools:text="John Doe" />
-
-                    <TextView
-                        android:id="@+id/profile_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textSize="14sp"
-                        tools:text="john.doe@example.com" />
-                </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/edit_profile_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit_profile"
-                    android:backgroundTint="#E0E0E0"
-                    android:textColor="#333333"
-                    app:cornerRadius="8dp"
-                    app:icon="@drawable/ic_edit"
-                    app:iconTint="#333333" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/profile_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_user_name"
+                tools:text="john.doe@example.com" />
 
             <View
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="#E0E0E0"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_email" />
 
             <Button
                 android:id="@+id/my_posts_button"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#E0E0E0"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:text="@string/my_posts"
-                android:backgroundTint="@color/RicoTheme"
-                android:textColor="@color/black"
+                android:textColor="#333333"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp" />
+                android:contentDescription="My Posts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
+            <!-- Saved Posts Button with English content description -->
             <Button
-                android:id="@+id/logout_button"
-                android:layout_width="match_parent"
+                android:id="@+id/saved_posts_button"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/logout"
-                android:backgroundTint="#F5F5F5"
-                android:textColor="#EA4335"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp" />
-        </LinearLayout>
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#E0E0E0"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@string/saved_posts"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:contentDescription="View your saved posts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_posts_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <!-- Logout Button at Bottom with English content description -->
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#F5F5F5"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/logout"
+        android:textColor="#EA4335"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:contentDescription="Log out from the application"
+        app:layout_constraintBottom_toTopOf="@+id/app_version"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/app_version"

@@ -31,8 +31,8 @@
     <string name="google_logo">Google Logo</string>
     <string name="don_t_have_an_account_sign_up_now">Don\'t have an account? Sign up now</string>
     <string name="default_web_client_id">1077075055533-kh3d09f64ksvqcdlcvvlcp1k982hqet5.apps.googleusercontent.com</string>
-    <string name="save_changes" />
-    <string name="cancel" />
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancle</string>"
     <string name="password_info" />
     <string name="show_password" />
     <string name="name_hint" />
@@ -42,18 +42,20 @@
     <string name="map_tap_marker_info" />
     <string name="my_uploads_header" />
     <string name="no_posts_yet" />
-    <string name="delete" />
+    <string name="delete">delete</string>
     <string name="restaurant_image" />
     <string name="edit" />
     <string name="app_version" />
-    <string name="my_posts" />
-    <string name="logout" />
-    <string name="edit_profile" />
+    <string name="my_posts">My Posts</string>
+    <string name="logout">logout</string>
+    <string name="edit_profile" >edit</string>
     <string name="profile_header" />
     <string name="main_label_nav_upload_post" />
     <string name="main_label_nav_profile" />
     <string name="main_label_my_posts" />
     <string name="main_label_map_fragment" />
+    <string name="settings" />
+    <string name="saved_posts">Saved Posts</string>
 
 
 </resources>

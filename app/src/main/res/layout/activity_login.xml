@@ -145,16 +145,6 @@
                             android:layout_weight="1"
                             android:background="#CCCCCC" />
 
-                        <TextView
-                            android:id="@+id/login_or_login_with"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:text="@string/login_with"
-                            android:textSize="14sp"
-                            android:contentDescription="@string/login_with_desc" />
-
                         <View
                             android:layout_width="0dp"
                             android:layout_height="1dp"
@@ -162,34 +152,7 @@
                             android:background="#CCCCCC" />
                     </LinearLayout>
 
-                    <!-- Google Sign In Button - Standard Style with increased spacing -->
-                    <LinearLayout
-                        android:id="@+id/login_google_login_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/btn_google_signin_background"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_google"
-                            android:contentDescription="@string/google_logo"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="@string/sign_in_with_google"
-                            android:textColor="#444444"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
 
                     <!-- Spacer to push buttons to bottom -->
                     <Space

@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-        google()  // פשטתי - אין צורך בהגבלות מורכבות
+        google()
         mavenCentral()
         gradlePluginPortal()
     }

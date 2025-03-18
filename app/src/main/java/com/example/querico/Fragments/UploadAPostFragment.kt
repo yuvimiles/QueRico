@@ -82,8 +82,7 @@ class UploadAPostFragment : Fragment() {
         createPostButton = view.findViewById(R.id.new_post_button)
 
         // Set default image URL (replace with your default image)
-        imageUrlRef = "https://firebasestorage.googleapis.com/v0/b/querico-app.appspot.com/o/default_restaurant.jpg?alt=media"
-
+        imageUrlRef = "https://firebasestorage.googleapis.com/v0/b/querico-6dd96.firebasestorage.app/o/profile_default_img.png?alt=media&token=56948c77-4804-4dcf-9654-0957083bfe61"
         // Set click listener for image upload button
         addImageButton.setOnClickListener {
             imagePicker.launch("image/*")

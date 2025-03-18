@@ -1,7 +1,6 @@
-package com.example.querico.Model.JoiendModel
+package com.example.querico.Model.JoinendModel
 
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.querico.RicoApplication
 import com.example.querico.Model.Entities.PostEntity

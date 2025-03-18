@@ -109,6 +109,8 @@ class PostFB {
         }.addOnFailureListener { exception ->
             println("Error uploading post: ${exception.message}")
             callback(false)
+        }.addOnCompleteListener{
+            println("asdasdad")
         }
 
     }

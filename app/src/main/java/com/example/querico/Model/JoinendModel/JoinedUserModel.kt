@@ -1,4 +1,4 @@
-package com.example.querico.Model.JoiendModel
+package com.example.querico.Model.JoinendModel
 
 import com.example.querico.RicoApplication
 import com.example.querico.Model.Entities.UserEntity

@@ -1,12 +1,11 @@
 package com.example.querico.ViewModel
 
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.querico.Model.Entities.PostEntity
-import com.example.querico.Model.JoiendModel.JoinedPostModel
+import com.example.querico.Model.JoinendModel.JoinedPostModel
 import com.google.firebase.auth.FirebaseAuth
 
 class MyUploadViewModel : ViewModel() {

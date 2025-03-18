@@ -107,7 +107,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
         mapViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
         // Fetch and observe posts
-        mapViewModel.fetchPosts()
+            mapViewModel.fetchPosts()
         mapViewModel.posts.observe(viewLifecycleOwner) { posts ->
             // Update the map with markers based on the retrieved posts
             updateMapWithPosts(posts)

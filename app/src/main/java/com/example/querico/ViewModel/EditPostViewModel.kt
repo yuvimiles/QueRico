@@ -2,8 +2,7 @@ package com.example.querico.ViewModel
 
 import androidx.lifecycle.ViewModel
 import com.example.querico.Model.Entities.PostEntity
-import com.example.querico.Model.JoiendModel.JoinedPostModel
-import com.google.firebase.auth.FirebaseAuth
+import com.example.querico.Model.JoinendModel.JoinedPostModel
 
 class EditPostViewModel: ViewModel() {
     val postsModel = JoinedPostModel()

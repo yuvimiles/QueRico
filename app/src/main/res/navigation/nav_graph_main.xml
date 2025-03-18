@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/feedFragment">
 
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.querico.Fragments.FeedFragment"
+        android:label="FeedFragment" />
+    <action
+        android:id="@+id/action_global_feedFragment"
+        app:destination="@id/feedFragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.querico.Fragments.ProfileFragment"
@@ -12,7 +20,7 @@
     <fragment
         android:id="@+id/uploadAPostFragment"
         android:name="com.example.querico.Fragments.UploadAPostFragment"
-        android:label="UploadAPetFragment" />
+        android:label="UploadAPostFragment" />
 
     <action
         android:id="@+id/action_global_UploadAPostFragment"

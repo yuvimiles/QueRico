@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.querico.Adapters.PostAdapter
 import com.example.querico.Model.Entities.PostEntity
+import com.example.querico.Model.JoinendModel.JoinedPostModel
 import com.example.querico.R
 import com.example.querico.ViewModel.FeedViewModel
 
@@ -65,7 +66,7 @@ class FeedFragment : Fragment() {
     }
 
     private fun observePosts() {
-        feedViewModel.posts.observe(viewLifecycleOwner) { posts ->
+        JoinedPostModel.instance.getAllPosts().observe(viewLifecycleOwner){posts ->
             if (posts != null) {
                 postAdapter.updatePosts(posts)
                 swipeRefreshLayout.isRefreshing = false
@@ -74,7 +75,6 @@ class FeedFragment : Fragment() {
                 swipeRefreshLayout.isRefreshing = false
             }
         }
-
         feedViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             swipeRefreshLayout.isRefreshing = isLoading
         }

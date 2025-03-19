@@ -1,5 +1,6 @@
 package com.example.querico.Model.ModelFB
 
+import android.util.Log
 import com.example.querico.Model.Entities.PostEntity
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.Query
@@ -11,17 +12,19 @@ class PostFB {
     companion object {
         val COLLECTION_NAME: String = "posts"
     }
+
     val db = Firebase.firestore
+
     //get all post from firebase
     fun getAllPosts(callback: (List<PostEntity>) -> Unit) {
         val query: Query = db.collection(COLLECTION_NAME)
 
-        query.get().addOnCompleteListener{snapshot->
-            if(snapshot.isSuccessful){
+        query.get().addOnCompleteListener { snapshot ->
+            if (snapshot.isSuccessful) {
                 val list = LinkedList<PostEntity>()
                 val doc = snapshot.result
 
-                for(postMap in doc){
+                for (postMap in doc) {
                     val post = PostEntity(postMap.id, "", "", "", "", "")
                     post.fromMap(postMap.data)
 
@@ -71,7 +74,7 @@ class PostFB {
             }
     }
 
-    fun updatePost(post: PostEntity, callback: (Boolean) -> Unit){
+    fun updatePost(post: PostEntity, callback: (Boolean) -> Unit) {
         val db = Firebase.firestore
         val postDocRef = db.collection(COLLECTION_NAME).document(post.id)
         val updatedPostData = hashMapOf(
@@ -93,7 +96,7 @@ class PostFB {
 
     }
 
-    fun uploadPost(post: PostEntity, callback: (Boolean) -> Unit){
+    fun uploadPost(post: PostEntity, callback: (Boolean) -> Unit) {
         val db = Firebase.firestore
         val docRef = db.collection("posts").document()
         val data = hashMapOf(
@@ -103,16 +106,17 @@ class PostFB {
             "uid" to post.uid,
             "image" to post.img
         )
-        docRef.set(data).addOnSuccessListener {
-            println("Post uploaded successfully")
-            callback(true)
-        }.addOnFailureListener { exception ->
-            println("Error uploading post: ${exception.message}")
-            callback(false)
-        }.addOnCompleteListener{
-            println("asdasdad")
-        }
-
+        docRef
+            .set(data)
+            .addOnSuccessListener {
+                Log.d("upload", "sucsses")
+                callback(true)
+            }.addOnFailureListener { exception ->
+                Log.d("upload", "failed")
+                callback(false)
+            }.addOnCompleteListener { task ->
+                Log.d("upload", "complete")
+            }
     }
 
 

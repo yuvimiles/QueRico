@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -38,7 +39,7 @@ class UploadAPostFragment : Fragment() {
     private lateinit var ratingBar: RatingBar
     private lateinit var addImageButton: ImageButton
     private lateinit var createPostButton: Button
-
+    private lateinit var progressBar : ProgressBar
     // Image handling
     private var imageUri: Uri? = null
     private lateinit var imageUrlRef: String
@@ -46,8 +47,9 @@ class UploadAPostFragment : Fragment() {
     private val imagePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
             imageUri = it
+            addImageButton.setImageURI(it)
             // Upload the image to Firebase Storage
-            uploadImage()
+            //uploadImage()
         }
     }
 
@@ -80,6 +82,7 @@ class UploadAPostFragment : Fragment() {
         ratingBar = view.findViewById(R.id.ratingBar)
         addImageButton = view.findViewById(R.id.register_add_image)
         createPostButton = view.findViewById(R.id.new_post_button)
+        progressBar = view.findViewById(R.id.progressBar)
 
         // Set default image URL (replace with your default image)
         imageUrlRef = "https://firebasestorage.googleapis.com/v0/b/querico-6dd96.firebasestorage.app/o/profile_default_img.png?alt=media&token=56948c77-4804-4dcf-9654-0957083bfe61"
@@ -96,7 +99,7 @@ class UploadAPostFragment : Fragment() {
             val rating = ratingBar.rating.toString()
 
             // Include rating in the content
-            val contentWithRating = "Rating: $rating\n\n$content"
+
 
             // Validate the input
             if (validate(restaurantName, location, content)) {
@@ -105,18 +108,7 @@ class UploadAPostFragment : Fragment() {
 
                 if (userId != null) {
                     // Create post entity
-                    val post = PostEntity("", restaurantName, imageUrlRef, contentWithRating, location, userId)
-
-                    // Upload the post
-                    uploadPostViewModel.uploadPost(post) { isSuccessful ->
-                        if (isSuccessful) {
-                            Toast.makeText(context, "Post uploaded successfully", Toast.LENGTH_SHORT).show()
-                            // Navigate back to the feed or to my uploads
-                            navController.navigate(R.id.myUploadsFragment) // Replace with your actual navigation action
-                        } else {
-                            Toast.makeText(context, "Failed to upload post", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                    uploadImage()
                 } else {
                     // User not logged in
                     Toast.makeText(context, "You need to be logged in to create a post", Toast.LENGTH_SHORT).show()
@@ -128,14 +120,38 @@ class UploadAPostFragment : Fragment() {
         }
     }
 
+    private fun uploadPostWithImage(){
+        val restaurantName = restaurantNameEditText.text.toString().trim()
+        val location = locationEditText.text.toString().trim()
+        val content = contentEditText.text.toString().trim()
+        val rating = ratingBar.rating.toString()
+        val contentWithRating = "Rating: $rating\n\n$content"
+        val userId = auth.currentUser?.uid
+        if(userId != null){
+            val post = PostEntity("", restaurantName, imageUrlRef, contentWithRating, location, userId)
+
+            // Upload the post
+            uploadPostViewModel.uploadPost(post) { isSuccessful ->
+                if (isSuccessful) {
+                    Toast.makeText(context, "Post uploaded successfully", Toast.LENGTH_SHORT).show()
+                    // Navigate back to the feed or to my uploads
+                    navController.navigate(R.id.myUploadsFragment) // Replace with your actual navigation action
+                } else {
+                    Toast.makeText(context, "Failed to upload post", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
     private fun validate(restaurantName: String, location: String, content: String): Boolean {
         return restaurantName.isNotEmpty() && location.isNotEmpty() && content.isNotEmpty()
     }
 
     private fun uploadImage() {
         // Show loading indicator or disable buttons if needed
-        createPostButton.isEnabled = false
-
+//        createPostButton.isEnabled = false
+        progressBar.visibility = View.VISIBLE
         imageUri?.let {
             val storageReference = FirebaseStorage.getInstance()
                 .getReference("restaurant_images/${System.currentTimeMillis()}.jpg")
@@ -144,34 +160,16 @@ class UploadAPostFragment : Fragment() {
                 // Get the download URL of the uploaded image
                 storageReference.downloadUrl.addOnSuccessListener { downloadUri ->
                     imageUrlRef = downloadUri.toString()
-
-                    // Load the image into the button background or show a preview
-                    context?.let { ctx ->
-                        Glide.with(ctx)
-                            .load(imageUrlRef)
-                            .into(object : com.bumptech.glide.request.target.CustomTarget<android.graphics.drawable.Drawable>() {
-                                override fun onResourceReady(
-                                    resource: android.graphics.drawable.Drawable,
-                                    transition: com.bumptech.glide.request.transition.Transition<in android.graphics.drawable.Drawable>?
-                                ) {
-                                    addImageButton.setImageDrawable(resource)
-                                }
-
-                                override fun onLoadCleared(placeholder: android.graphics.drawable.Drawable?) {
-                                    // Do nothing
-                                }
-                            })
-                    }
-
-                    Toast.makeText(context, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
-                    createPostButton.isEnabled = true
+                    uploadPostWithImage()
                 }.addOnFailureListener { e ->
+                    progressBar.visibility = View.GONE
                     // Handle failed download URL retrieval
                     Toast.makeText(context, "Failed to get download URL: ${e.message}", Toast.LENGTH_SHORT).show()
                     createPostButton.isEnabled = true
                 }
             }.addOnFailureListener { e ->
                 // Handle failed upload
+                progressBar.visibility = View.GONE
                 Toast.makeText(context, "Upload failed: ${e.message}", Toast.LENGTH_SHORT).show()
                 createPostButton.isEnabled = true
             }

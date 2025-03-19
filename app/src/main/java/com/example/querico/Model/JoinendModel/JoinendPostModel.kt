@@ -17,7 +17,7 @@ class JoinedPostModel {
     private val modelRoom = PostModel()
     private val allPosts = AllPostLiveData()
 
-    fun getAllPosts(): AllPostLiveData{
+    fun getAllPosts(): AllPostLiveData {
         return allPosts
     }
 
@@ -37,8 +37,8 @@ class JoinedPostModel {
         }
     }
 
-    fun editPost(post: PostEntity, callback: (Boolean) -> Unit){
-        modelFirebase.updatePost(post){ isSuccessful ->
+    fun editPost(post: PostEntity, callback: (Boolean) -> Unit) {
+        modelFirebase.updatePost(post) { isSuccessful ->
             if (isSuccessful) {
 
                 // Update the post in the local database
@@ -50,9 +50,9 @@ class JoinedPostModel {
         }
     }
 
-    fun uploadPost(post: PostEntity, callback: (Boolean) -> Unit){
-        modelFirebase.uploadPost(post){isSuccessful ->
-            if(isSuccessful){
+    fun uploadPost(post: PostEntity, callback: (Boolean) -> Unit) {
+        modelFirebase.uploadPost(post) { isSuccessful ->
+            if (isSuccessful) {
                 // Update the post in the local database
                 RicoApplication.getExecutorService().execute {
                     modelRoom.insertPost(post)
@@ -86,22 +86,19 @@ class JoinedPostModel {
         return postsLiveData
     }
 
-    inner class AllPostLiveData: MutableLiveData<List<PostEntity>>() {
-        init{
+    inner class AllPostLiveData : MutableLiveData<List<PostEntity>>() {
+        init {
             value = LinkedList<PostEntity>()
         }
 
         override fun onActive() {
             super.onActive()
 
-            RicoApplication.getExecutorService().execute{
+            RicoApplication.getExecutorService().execute {
                 val allPosts = modelRoom.getAllPosts()
                 postValue(allPosts)
             }
-
-            modelFirebase.getAllPosts{ posts : List<PostEntity> ->
-                value = posts
-
+            modelFirebase.getAllPosts { posts: List<PostEntity> ->
                 RicoApplication.getExecutorService().execute {
                     for (post in posts) {
                         modelRoom.insertPost(post)

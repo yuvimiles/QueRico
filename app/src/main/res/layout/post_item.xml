@@ -16,6 +16,39 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- User info section -->
+        <ImageView
+            android:id="@+id/profile_image_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_placeholder_image"
+            android:contentDescription="User profile picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/profile_image_view"
+            app:layout_constraintTop_toTopOf="@+id/profile_image_view"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Username" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#EEEEEE"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image_view" />
+
         <TextView
             android:id="@+id/restaurant_name"
             android:layout_width="0dp"
@@ -23,9 +56,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
             tools:text="Restaurant Name" />
 
         <TextView
@@ -35,9 +69,9 @@
             android:layout_marginTop="4dp"
             android:drawablePadding="4dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            app:drawableStartCompat="@drawable/ic_location"
+            app:drawableStartCompat="@drawable/ic_map"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_name"
@@ -56,6 +90,18 @@
             app:layout_constraintTop_toBottomOf="@+id/post_location"
             tools:src="@tools:sample/backgrounds/scenic" />
 
+        <RatingBar
+            android:id="@+id/single_post_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:rating="0.0"
+            android:isIndicator="true"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_image" />
+
         <TextView
             android:id="@+id/post_content"
             android:layout_width="0dp"
@@ -66,7 +112,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_image"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_rating"
             tools:text="This is a post content describing the restaurant and the food experience. It might be quite lengthy so we're limiting it to 4 lines." />
 
         <com.google.android.material.button.MaterialButton
@@ -75,8 +121,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="View More"
-            android:textColor="?attr/colorPrimary"
+            android:text="@string/view_more"
+            android:textColor="?attr/editTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_content" />
 

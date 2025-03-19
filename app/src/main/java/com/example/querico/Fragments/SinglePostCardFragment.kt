@@ -24,6 +24,9 @@ class SinglePostCardFragment : Fragment() {
     private lateinit var locationTextView: TextView
     private lateinit var ratingBar: RatingBar
     private lateinit var cuisineInfoTextView: TextView
+    private lateinit var backButton: View
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,12 @@ class SinglePostCardFragment : Fragment() {
         locationTextView = view.findViewById(R.id.single_post_location)
         ratingBar = view.findViewById(R.id.single_post_rating)
         cuisineInfoTextView = view.findViewById(R.id.single_post_cuisine_info)
+        backButton = view.findViewById(R.id.back_to_feed_button)
+
+        backButton.setOnClickListener {
+            // Navigate back to the previous screen (feed)
+            requireActivity().onBackPressed()
+        }
 
         // Set the values to the views
         Glide.with(requireContext())
@@ -121,6 +130,7 @@ class SinglePostCardFragment : Fragment() {
         })
     }
 
+
     private fun formatCuisineInfo(responseData: String?): String {
         if (responseData.isNullOrEmpty()) return "No cuisine information available"
 
@@ -152,4 +162,6 @@ class SinglePostCardFragment : Fragment() {
             return "Could not parse cuisine information"
         }
     }
+
+
 }

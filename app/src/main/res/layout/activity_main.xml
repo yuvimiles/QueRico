@@ -13,21 +13,19 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_rico_img"
+            android:layout_width="112dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:contentDescription="@string/rico_img_desc"
-            android:padding="8dp">
-        </ImageView>
+            android:padding="8dp"
+            android:src="@drawable/querico_logo"></ImageView>
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/white">
-        </View>
+            android:background="@color/white"></View>
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
@@ -47,7 +45,7 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemTextColor="@color/black"
         app:itemIconTint="@color/black"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/RicoTheme"
         app:labelVisibilityMode="labeled"
         android:elevation="8dp"/>
 

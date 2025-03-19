@@ -122,7 +122,7 @@
             android:id="@+id/back_to_feed_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back to Feed"
+            android:text="@string/back"
             android:layout_gravity="center"
             android:backgroundTint="@color/RicoTheme"
             android:textColor="@color/black"

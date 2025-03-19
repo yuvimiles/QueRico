@@ -38,7 +38,7 @@
     <string name="no_posts_yet" >No post yet</string>
     <string name="delete">delete</string>
     <string name="restaurant_image" />
-    <string name="edit" />
+    <string name="edit">edit</string>
     <string name="app_version" />
     <string name="my_posts">My Posts</string>
     <string name="logout">logout</string>
@@ -52,6 +52,8 @@
     <string name="saved_posts">Saved Posts</string>
     <string name="google_logo">Google logo</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="back">Back</string>
+    <string name="view_more">View More</string>
 
 
 </resources>

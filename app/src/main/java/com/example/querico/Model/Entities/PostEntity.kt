@@ -14,7 +14,8 @@ data class PostEntity (
     var img: String,
     var content: String,
     var location: String,
-    var uid: String
+    var uid: String,
+
 ) : Serializable {
     fun fromMap(map: Map<String?, Any?>) {
         img = map["image"].toString()

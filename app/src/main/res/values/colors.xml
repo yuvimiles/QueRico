@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="RicoTheme">#E4DDC6</color>
-    <color name="addPostBackground">#EFE9E9</color>
+    <color name="addPostBackground">#FFFFFF</color>
+    <color name="btnColor">#BCB79E</color>
+
 
 </resources>

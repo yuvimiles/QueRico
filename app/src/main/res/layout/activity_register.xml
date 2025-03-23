@@ -56,33 +56,25 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Profile Image and Upload Button in one row -->
-                <LinearLayout
+
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="16dp">
 
                     <ImageView
                         android:id="@+id/register_profile_image"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/ic_add_image"
                         android:contentDescription="@string/profile_picture"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_placeholder_image" />
-
-                    <ImageButton
-                        android:id="@+id/register_upload_image_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:contentDescription="@string/upload_photo"
-                        android:focusable="true"
-                        android:src="@drawable/ic_add_image" />
-                </LinearLayout>
+                </FrameLayout>
 
                 <!-- Full name Input Field -->
                 <com.google.android.material.textfield.TextInputLayout

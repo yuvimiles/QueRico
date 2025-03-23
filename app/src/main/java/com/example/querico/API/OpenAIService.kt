@@ -1,6 +1,8 @@
 package com.example.querico.API
 
+import android.os.Build
 import android.util.Log
+import com.example.querico.BuildConfig
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
@@ -19,8 +21,7 @@ import java.util.concurrent.TimeUnit
 class OpenAIService {
     companion object {
         private const val TAG = "OpenAIService"
-        private const val API_KEY = "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"
-
+        private const val API_KEY = "OPENAI_API_KEY"
         private const val INITIAL_DELAY = 1000L
         private const val MAX_RETRIES = 3
     }

@@ -1,6 +1,7 @@
 package com.example.querico.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,14 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.querico.API.OpenAIService
 import com.example.querico.Model.Entities.PostEntity
 import com.example.querico.R
+import kotlinx.coroutines.launch
 import okhttp3.*
 import java.io.IOException
-import org.json.JSONObject
 
 class SinglePostCardFragment : Fragment() {
 
@@ -23,10 +26,11 @@ class SinglePostCardFragment : Fragment() {
     private lateinit var contentTextView: TextView
     private lateinit var locationTextView: TextView
     private lateinit var ratingBar: RatingBar
-    private lateinit var cuisineInfoTextView: TextView
     private lateinit var backButton: View
 
-
+    // OpenAI related fields
+    private lateinit var openAIService: OpenAIService
+    private lateinit var aiAnalysisTextView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +47,13 @@ class SinglePostCardFragment : Fragment() {
         contentTextView = view.findViewById(R.id.single_post_content)
         locationTextView = view.findViewById(R.id.single_post_location)
         ratingBar = view.findViewById(R.id.single_post_rating)
-        cuisineInfoTextView = view.findViewById(R.id.single_post_cuisine_info)
         backButton = view.findViewById(R.id.back_to_feed_button)
+
+        // Initialize OpenAI service
+        openAIService = OpenAIService()
+
+        // Find the AI analysis TextView
+        aiAnalysisTextView = view.findViewById(R.id.single_post_ai_analysis)
 
         backButton.setOnClickListener {
             // Navigate back to the previous screen (feed)
@@ -54,6 +63,8 @@ class SinglePostCardFragment : Fragment() {
         // Set the values to the views
         Glide.with(requireContext())
             .load(post.img)
+            .error(R.drawable.restaurant1) // תמונת ברירת מחדל מקומית
+            .placeholder(R.drawable.placeholder_image) // אנימציית טעינה
             .into(postImageView)
 
         restaurantNameTextView.text = post.restaurantName
@@ -84,84 +95,31 @@ class SinglePostCardFragment : Fragment() {
             ratingBar.rating = 0f
         }
 
-        // Fetch cuisine information for the restaurant
-        fetchCuisineInfo(post.restaurantName)
+        // Analyze post with OpenAI (ChatGPT)
+        analyzeRestaurantWithAI()
 
         return view
     }
 
-    private fun fetchCuisineInfo(restaurantName: String) {
-        val client = OkHttpClient()
+    // Function to analyze the restaurant post with ChatGPT
+    private fun analyzeRestaurantWithAI() {
+        lifecycleScope.launch {
+            try {
+                // Display loading state
+                aiAnalysisTextView.text = "Analyzing restaurant information..."
 
-        // Replace spaces with dashes for the API request
-        val formattedName = restaurantName.replace(" ", "-").toLowerCase()
+                // Get analysis from OpenAI
+                val analysis = openAIService.analyzeRestaurant(
+                    restaurantName = post.restaurantName,
+                    content = post.content
+                )
 
-        val request = Request.Builder()
-            .url("https://restaurants-api.p.rapidapi.com/restaurants?query=$formattedName")
-            .get()
-            .addHeader("X-RapidAPI-Key", "YOUR_RAPID_API_KEY") // Replace with your API key
-            .addHeader("X-RapidAPI-Host", "restaurants-api.p.rapidapi.com")
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                activity?.runOnUiThread {
-                    cuisineInfoTextView.text = "Could not fetch cuisine information"
-                }
+                // Display analysis in UI
+                aiAnalysisTextView.text = analysis
+            } catch (e: Exception) {
+                Log.e("SinglePostCard", "Error analyzing restaurant", e)
+                aiAnalysisTextView.text = "Could not analyze restaurant information. Please try again later."
             }
-
-            override fun onResponse(call: Call, response: Response) {
-                try {
-                    val responseData = response.body?.string()
-
-                    // Update UI with the response data
-                    activity?.runOnUiThread {
-                        val cuisineInfo = formatCuisineInfo(responseData)
-                        cuisineInfoTextView.text = cuisineInfo
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    activity?.runOnUiThread {
-                        cuisineInfoTextView.text = "Error processing cuisine information"
-                    }
-                }
-            }
-        })
-    }
-
-
-    private fun formatCuisineInfo(responseData: String?): String {
-        if (responseData.isNullOrEmpty()) return "No cuisine information available"
-
-        try {
-            val jsonObject = JSONObject(responseData)
-
-            // Check if the response contains restaurant data
-            if (jsonObject.has("results") && jsonObject.getJSONArray("results").length() > 0) {
-                val restaurantInfo = jsonObject.getJSONArray("results").getJSONObject(0)
-
-                val cuisineType = if (restaurantInfo.has("cuisine")) {
-                    restaurantInfo.getString("cuisine")
-                } else {
-                    "Unknown cuisine"
-                }
-
-                val priceRange = if (restaurantInfo.has("price_range")) {
-                    restaurantInfo.getString("price_range")
-                } else {
-                    "Unknown price range"
-                }
-
-                return "Cuisine: $cuisineType\nPrice Range: $priceRange"
-            } else {
-                return "No detailed cuisine information available for this restaurant"
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return "Could not parse cuisine information"
         }
     }
-
-
 }

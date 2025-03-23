@@ -27,7 +27,7 @@
     <string name="default_web_client_id">1077075055533-if4gi424abq0pcdnf4clkabth4fbkekc.apps.googleusercontent.com</string>
     <string name="save_changes">Save Changes</string>
     <string name="cancel">Cancle</string>"
-    <string name="password_info" />
+    <string name="password_info" translatable="false" />
     <string name="show_password" />
     <string name="name_hint" />
     <string name="change_photo" />

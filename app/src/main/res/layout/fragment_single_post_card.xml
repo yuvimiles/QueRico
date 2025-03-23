@@ -97,7 +97,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cuisine Information"
+            android:text="AI Information"
             android:textStyle="bold"
             android:layout_marginBottom="4dp"/>
 
@@ -106,17 +106,26 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="#F8F8F8"
             app:contentPadding="16dp"
             android:layout_marginBottom="16dp">
 
             <TextView
-                android:id="@+id/single_post_cuisine_info"
+                android:id="@+id/single_post_ai_analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Loading cuisine information..."
-                android:textSize="14sp"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:textSize="14sp"
+                android:background="#F5F5F5"
+                android:text="AI Analysis will appear here..." />
+
         </androidx.cardview.widget.CardView>
+
+
+
+
 
         <Button
             android:id="@+id/back_to_feed_button"

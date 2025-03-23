@@ -58,13 +58,12 @@ class RegisterActivity : AppCompatActivity() {
         val passwordEditText: TextInputEditText = findViewById(R.id.register_password_input_text)
         val confirmPasswordEditText: TextInputEditText = findViewById(R.id.register_confirm_password_input_text)
         profileImageView = findViewById(R.id.register_profile_image)
-        val uploadImageButton: ImageButton = findViewById(R.id.register_upload_image_button)
         val registerButton: Button = findViewById(R.id.register_button)
         val backButton: Button = findViewById(R.id.register_back_button)
         progressBar = findViewById(R.id.register_progress_bar)
 
         // Set upload image button click listener
-        uploadImageButton.setOnClickListener {
+        profileImageView.setOnClickListener {
             imagePicker.launch("image/*")
         }
 

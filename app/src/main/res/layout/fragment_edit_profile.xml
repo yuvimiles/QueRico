@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,34 +18,38 @@
         android:gravity="center"
         android:text="@string/edit_profile_header"
         android:textSize="24sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp">
 
         <ImageView
             android:id="@+id/edit_profile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="@string/profile_picture"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_placeholder_image" />
-
+            android:src="@drawable/ic_placeholder_image"
+            android:background="@drawable/ic_placeholder_image"
+            android:padding="2dp"
+            android:clipToOutline="true"
+            android:outlineProvider="background"
+            android:contentDescription="@string/profile_picture" />
         <Button
             android:id="@+id/change_profile_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="8dp"
             android:text="@string/change_photo"
-            android:textColor="@color/black"
-            android:backgroundTint="#E0E0E0" />
-    </LinearLayout>
+            android:contentDescription="@string/change_photo"
+            android:textSize="12sp"
+            android:backgroundTint="#F5F5F5"
+            android:textColor="#666666" />
+
+    </FrameLayout>
 
     <!-- Name Input Field -->
     <com.google.android.material.textfield.TextInputLayout
@@ -52,13 +57,15 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/name_hint">
+        android:hint="@string/name_hint"
+        app:boxBackgroundColor="#F5F5F5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_profile_name_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:background="#F5F5F5" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Email Input Field -->
@@ -68,13 +75,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/email_hint">
+        android:hint="@string/email_hint"
+        app:boxBackgroundColor="#F5F5F5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_profile_email_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:background="#F5F5F5" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password Field with show/hide toggle -->
@@ -96,11 +105,14 @@
 
         <ImageButton
             android:id="@+id/show_password_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/show_password"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="12dp"
             android:src="@drawable/ic_hide_password" />
     </LinearLayout>
 
@@ -123,11 +135,14 @@
 
         <ImageButton
             android:id="@+id/show_confirm_password_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/show_password"
+            android:contentDescription="@string/show_confirm_password_description"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="12dp"
             android:src="@drawable/ic_hide_password" />
     </LinearLayout>
 
@@ -139,31 +154,40 @@
         android:textSize="12sp"
         android:textStyle="italic" />
 
-    <!-- Buttons -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/password_info"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
         android:gravity="center"
-        android:layout_marginTop="24dp">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/save_profile_changes_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/RicoTheme"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="#F5F5F5"
             android:text="@string/save_changes"
+            android:contentDescription="@string/save_changes"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginEnd="8dp" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/cancel_changes_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#F5F5F5"
             android:text="@string/cancel"
-            android:textColor="#666666"
-            android:layout_marginStart="8dp" />
+            android:contentDescription="@string/cancel"
+            android:textColor="#666666" />
     </LinearLayout>
 </LinearLayout>

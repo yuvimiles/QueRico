@@ -2,6 +2,7 @@ package com.example.querico.Model.JoinendModel
 
 import com.example.querico.RicoApplication
 import com.example.querico.Model.Entities.UserEntity
+import com.example.querico.Model.JoinedModel.JoinedPostModel
 import com.example.querico.Model.ModelFB.UserFB
 import com.example.querico.Model.ModelRoom.Model.UserModel
 import com.google.firebase.auth.FirebaseAuth

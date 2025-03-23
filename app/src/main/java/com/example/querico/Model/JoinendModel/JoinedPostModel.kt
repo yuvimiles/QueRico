@@ -1,4 +1,4 @@
-package com.example.querico.Model.JoinendModel
+package com.example.querico.Model.JoinedModel
 
 
 import androidx.lifecycle.MutableLiveData

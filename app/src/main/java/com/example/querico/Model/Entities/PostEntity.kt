@@ -18,10 +18,10 @@ data class PostEntity (
 
 ) : Serializable {
     fun fromMap(map: Map<String?, Any?>) {
+        uid = map["uid"].toString()
         img = map["image"].toString()
         restaurantName = map["restaurantName"].toString()
-        content = map["content"].toString()
         location = map["location"].toString()
-        uid = map["uid"].toString()
+        content = map["content"].toString()
     }
 }

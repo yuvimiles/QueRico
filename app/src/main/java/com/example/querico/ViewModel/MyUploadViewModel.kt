@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.querico.Model.Entities.PostEntity
-import com.example.querico.Model.JoinendModel.JoinedPostModel
+import com.example.querico.Model.JoinedModel.JoinedPostModel
 import com.google.firebase.auth.FirebaseAuth
 
 class MyUploadViewModel : ViewModel() {
@@ -17,6 +17,7 @@ class MyUploadViewModel : ViewModel() {
     val userPosts: LiveData<List<PostEntity>> get() = _userPosts
     private val user= auth.currentUser
     val uid= user!!.uid
+
 
     // Method to set user posts in the LiveData
     fun getUserPosts(uid: String) {

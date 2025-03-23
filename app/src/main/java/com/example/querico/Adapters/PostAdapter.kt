@@ -57,10 +57,32 @@ class PostAdapter(private val onPostClickListener: (PostEntity) -> Unit) :
 
         fun bind(post: PostEntity) {
             restaurantNameTextView.text = post.restaurantName
-            contentTextView.text = post.content
             locationTextView.text = post.location
 
-            ratingBar.rating = 0.0f
+            // חילוץ דירוג ותוכן
+            var rating = 0f
+            var displayContent = post.content
+
+            if (post.content.startsWith("Rating:")) {
+                val contentParts = post.content.split("\n\n", limit = 2)
+                if (contentParts.size > 1) {
+                    // Extract rating value
+                    val ratingText = contentParts[0].replace("Rating:", "").trim()
+                    try {
+                        rating = ratingText.toFloat()
+                        // Set just the content part without rating text
+                        displayContent = contentParts[1]
+                    } catch (e: NumberFormatException) {
+                        // If rating conversion fails, keep original content
+                    }
+                }
+            }
+
+            // הצגת הדירוג בכוכבים
+            ratingBar.rating = rating
+
+            // הצגת התוכן ללא חלק הדירוג
+            contentTextView.text = displayContent
 
             // טען את תמונת הפוסט באמצעות Glide אם קיימת
             if (post.img.isNotEmpty() && post.img != "null") {

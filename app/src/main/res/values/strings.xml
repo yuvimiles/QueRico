@@ -19,7 +19,7 @@
     <string name="dont_have_account">Don’t have an account yet? Register here</string>
     <string name="login_with">Or Login with</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login_button_desc">התחבר לחשבון</string>
+    <string name="login_button_desc">login</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="back_to_login">Back to Login</string>
     <string name="upload_photo">Upload Photo</string>
@@ -28,9 +28,9 @@
     <string name="save_changes">Save Changes</string>
     <string name="cancel">Cancle</string>"
     <string name="password_info" translatable="false" />
-    <string name="show_password" />
-    <string name="name_hint" />
-    <string name="change_photo" />
+    <string name="show_password">show_password</string>
+    <string name="name_hint">Name</string>
+    <string name="change_photo">change</string>
     <string name="edit_profile_header">Edit Profile</string>
     <string name="edit_post_header">Edit Post</string>
     <string name="map_tap_marker_info" />
@@ -54,6 +54,8 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="back">Back</string>
     <string name="view_more">View More</string>
+    <string name="edit_photo">edit_photo</string>
+    <string name="show_confirm_password_description">show_confirm_password_description</string>
 
 
 </resources>

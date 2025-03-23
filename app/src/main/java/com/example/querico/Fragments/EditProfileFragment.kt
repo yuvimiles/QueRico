@@ -99,8 +99,13 @@ class EditProfileFragment : Fragment() {
         emailEditText.setText(user.email)
 
         // Load profile image
+        android.util.Log.d("ImageDebug", "Loading profile image from URL: ${user.profileImg}")
         Glide.with(requireContext())
             .load(user.profileImg)
+            .placeholder(R.drawable.ic_placeholder_image)
+            .error(R.drawable.ic_placeholder_image)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
             .into(profileImageView)
 
         // Set click listeners for password visibility toggle

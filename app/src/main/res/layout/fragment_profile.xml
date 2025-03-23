@@ -59,6 +59,9 @@
                 android:contentDescription="Profile picture"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_placeholder_image"
+                android:background="@drawable/ic_placeholder_image"
+                android:padding="2dp"
+                android:clipToOutline="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

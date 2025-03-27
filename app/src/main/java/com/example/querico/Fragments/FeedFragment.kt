@@ -2,6 +2,7 @@ package com.example.querico.Fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.example.querico.Model.Entities.PostEntity
 import com.example.querico.Model.JoinedModel.JoinedPostModel
 import com.example.querico.R
 import com.example.querico.ViewModel.FeedViewModel
+import com.google.firebase.database.Transaction
 
 class FeedFragment : Fragment() {
 
@@ -53,10 +55,10 @@ class FeedFragment : Fragment() {
         recyclerView.adapter = postAdapter
 
         // Observe posts data
-        observePosts()
+         observePosts()
 
         // Load initial posts
-        feedViewModel.fetchPosts()
+         feedViewModel.fetchPosts()
 
         return rootView
     }
@@ -70,7 +72,10 @@ class FeedFragment : Fragment() {
             if (posts != null) {
                 postAdapter.updatePosts(posts)
                 swipeRefreshLayout.isRefreshing = false
-            } else {
+                posts.forEach { post ->
+                    Log.d("PostDebug", "Post ID: ${post.id}, Title: ${post.restaurantName}")
+                }
+                } else {
                 Toast.makeText(context, "Failed to load posts", Toast.LENGTH_SHORT).show()
                 swipeRefreshLayout.isRefreshing = false
             }
@@ -89,4 +94,6 @@ class FeedFragment : Fragment() {
         bundle.putSerializable("post", post)
         navController.navigate(R.id.action_global_singlePostCardFragment, bundle)
     }
+
+
 }

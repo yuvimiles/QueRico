@@ -82,7 +82,8 @@ class PostFB {
             "content" to post.content,
             "location" to post.location,
             "image" to post.img,
-            "uid" to post.uid
+            "uid" to post.uid,
+            "timestamp" to post.timestamp
         )
         postDocRef.update(updatedPostData as Map<String, Any>)
             .addOnSuccessListener {
@@ -104,7 +105,8 @@ class PostFB {
             "content" to post.content,
             "location" to post.location,
             "uid" to post.uid,
-            "image" to post.img
+            "image" to post.img,
+            "timestamp" to post.timestamp
         )
         docRef
             .set(data)

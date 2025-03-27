@@ -25,5 +25,8 @@ class PostModel {
     fun updatePost(post: PostEntity){
         return AppDB.getInstance().postDao().updatePost(post)
     }
+    fun getAllPostsNewestFirst(): List<PostEntity> {
+        return AppDB.getInstance().postDao().getAllPostsNewestFirst()
+    }
 
 }

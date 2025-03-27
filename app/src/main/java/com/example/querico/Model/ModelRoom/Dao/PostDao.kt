@@ -25,4 +25,7 @@ interface PostDao {
 
     @Query("SELECT * FROM posts WHERE uid = :userId")
     fun getPostsByUserId(userId: String): List<PostEntity>
+
+    @Query("SELECT * FROM posts ORDER BY timestamp DESC")
+    fun getAllPostsNewestFirst(): List<PostEntity>
 }

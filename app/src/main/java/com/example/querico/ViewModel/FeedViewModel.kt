@@ -27,9 +27,8 @@ class FeedViewModel : ViewModel() {
     fun fetchPosts() {
         _isLoading.value = true
 
-        // _posts.value = postsModel.getAllPosts().value
         postRepository.getAllPosts { postsList ->
-            _posts.value = postsList.sortedByDescending { it.id } // Sort by newest first (assuming ID has timestamp info)
+            _posts.value = postsList.sortedByDescending { it.timestamp } // Sort by newest first using timestamp
             _isLoading.value = false
         }
     }

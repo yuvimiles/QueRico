@@ -24,10 +24,22 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/my_post_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Restaurant Name" />
+
+        <TextView
+            android:id="@+id/my_post_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#757575"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/my_post_restaurant_name"
+            app:layout_constraintBottom_toBottomOf="@id/my_post_restaurant_name"
+            tools:text="לפני 2 שעות" />
 
         <TextView
             android:id="@+id/my_post_location"

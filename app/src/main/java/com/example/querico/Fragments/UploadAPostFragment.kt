@@ -120,14 +120,19 @@ class UploadAPostFragment : Fragment() {
     }
 
     private fun uploadPostWithImage(){
+
         val restaurantName = restaurantNameEditText.text.toString().trim()
         val location = locationEditText.text.toString().trim()
         val content = contentEditText.text.toString().trim()
         val rating = ratingBar.rating.toString()
         val contentWithRating = "Rating: $rating\n\n$content"
         val userId = auth.currentUser?.uid
+
+        val currentTime = System.currentTimeMillis()
+        val timestamp = currentTime
+
         if(userId != null){
-            val post = PostEntity("", restaurantName, imageUrlRef, contentWithRating, location, userId)
+            val post = PostEntity("", restaurantName, imageUrlRef, contentWithRating, location, userId, timestamp)
 
             // Upload the post
             uploadPostViewModel.uploadPost(post) { isSuccessful ->

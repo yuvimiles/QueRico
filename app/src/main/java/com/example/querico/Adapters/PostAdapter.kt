@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.querico.Model.Entities.PostEntity
 import com.example.querico.Model.ModelRoom.Model.UserModel
 import com.example.querico.R
+import com.example.querico.utils.TimeUtils
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,10 +55,12 @@ class PostAdapter(private val onPostClickListener: (PostEntity) -> Unit) :
         private val postImageView: ImageView = itemView.findViewById(R.id.post_image)
         private val ratingBar: RatingBar = itemView.findViewById(R.id.single_post_rating)
         private val viewMoreButton: MaterialButton = itemView.findViewById(R.id.view_more_button)
+        private val timeTextView: TextView = itemView.findViewById(R.id.post_time)
 
         fun bind(post: PostEntity) {
             restaurantNameTextView.text = post.restaurantName
             locationTextView.text = post.location
+            timeTextView.text = TimeUtils.getRelativeTimeSpan(post.timestamp)
 
             // חילוץ דירוג ותוכן
             var rating = 0f

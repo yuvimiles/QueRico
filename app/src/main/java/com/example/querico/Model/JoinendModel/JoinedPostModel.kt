@@ -95,7 +95,7 @@ class JoinedPostModel {
             super.onActive()
 
             RicoApplication.getExecutorService().execute {
-                val allPosts = modelRoom.getAllPosts()
+                val allPosts = modelRoom.getAllPostsNewestFirst()
                 postValue(allPosts)
             }
             modelFirebase.getAllPosts { posts: List<PostEntity> ->
@@ -103,6 +103,8 @@ class JoinedPostModel {
                     for (post in posts) {
                         modelRoom.insertPost(post)
                     }
+                    val updatedPosts = modelRoom.getAllPostsNewestFirst()
+                    postValue(updatedPosts)
                 }
             }
         }

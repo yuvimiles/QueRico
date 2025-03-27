@@ -31,13 +31,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/profile_image_view"
             app:layout_constraintTop_toTopOf="@+id/profile_image_view"
             app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/post_time"
             tools:text="Username" />
+
+        <TextView
+            android:id="@+id/post_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#757575"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profile_image_view"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
+            tools:text="לפני 2 שעות" />
 
         <View
             android:id="@+id/divider"

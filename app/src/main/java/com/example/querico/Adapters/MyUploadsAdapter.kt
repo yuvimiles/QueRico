@@ -35,6 +35,7 @@ class MyUploadsAdapter(private val viewModel: MyUploadViewModel, activity: Fragm
         private val restaurantNameTextView: TextView = itemView.findViewById(R.id.my_post_restaurant_name)
         private val contentTextView: TextView = itemView.findViewById(R.id.my_post_content)
         private val locationTextView: TextView = itemView.findViewById(R.id.my_post_location)
+        private val timeTextView: TextView = itemView.findViewById(R.id.my_post_time)
 
         // צריך להוסיף RatingBar לlayout של my_post_card.xml
         private val ratingBar: RatingBar? = itemView.findViewById(R.id.my_post_rating)
@@ -84,7 +85,8 @@ class MyUploadsAdapter(private val viewModel: MyUploadViewModel, activity: Fragm
                     post.img,
                     post.content,
                     post.location,
-                    post.uid
+                    post.uid,
+                    post.timestamp
                 )
 
                 // Call the ViewModel's deletePost function with the post object

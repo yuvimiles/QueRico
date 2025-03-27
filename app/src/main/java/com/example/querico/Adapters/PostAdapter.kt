@@ -41,7 +41,7 @@ class PostAdapter(private val onPostClickListener: (PostEntity) -> Unit) :
     override fun getItemCount(): Int = posts.size
 
     fun updatePosts(newPosts: List<PostEntity>) {
-        posts = newPosts
+        posts = newPosts.distinctBy { it.id }
         notifyDataSetChanged()
     }
 

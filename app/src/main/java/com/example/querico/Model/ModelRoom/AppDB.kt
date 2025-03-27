@@ -17,7 +17,6 @@ abstract class AppDB : RoomDatabase() {
     abstract fun postDao(): PostDao
 
     companion object {
-        // Define a singleton instance of the database
         @Volatile private var instance: AppDB? = null;
         private const val DB_NAME = "QUE_RICO"
 

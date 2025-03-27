@@ -19,13 +19,13 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/rico_img_desc"
             android:padding="8dp"
-            android:src="@drawable/querico_logo"></ImageView>
+            android:src="@drawable/querico_logo" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/white"></View>
+            android:background="@color/white" />
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView

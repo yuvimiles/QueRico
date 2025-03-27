@@ -22,8 +22,9 @@ object LocationUtils {
 
         try {
             val geocoder = Geocoder(context, Locale.getDefault())
-            //val addresses: List<Address>? = geocoder.getFromLocationName(locationString, 1)
-            val addresses : List<Address>? = null
+            val addresses: List<Address>? = geocoder.getFromLocationName(locationString, 1)
+            // הסירי את השורה הזו: val addresses : List<Address>? = null
+
             if (!addresses.isNullOrEmpty()) {
                 val address: Address = addresses[0]
                 latitude = address.latitude

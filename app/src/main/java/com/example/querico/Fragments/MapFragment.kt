@@ -62,6 +62,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         googleMap.uiSettings.isZoomControlsEnabled = true
         googleMap.uiSettings.isCompassEnabled = true
 
+        val israelCenter = LatLng(31.7683, 35.2137) // קואורדינטות של מרכז ישראל
+        val zoomLevel = 7.5f
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(israelCenter, zoomLevel))
+
         // Check if location permissions are granted
         if (checkLocationPermission()) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -83,7 +88,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                         // Update the user's current location only once
                         updateUserLocation("currentUser", LatLng(it.latitude, it.longitude))
                         // Move camera to user's location only once
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), 15f))
+                        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), 15f))
 
                         // Remove location updates after user's location is obtained
                         fusedLocationClient.removeLocationUpdates(locationCallback)

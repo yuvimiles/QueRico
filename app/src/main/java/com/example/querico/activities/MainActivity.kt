@@ -6,6 +6,12 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.querico.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.Toast
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import com.example.querico.Model.ModelFB.PostFB
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -17,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpNav()
     }
+
     private fun setUpNav(){
 
         //get instance bottom nav
@@ -26,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_navhost_frag) as NavHostFragment
         val navController = navHostFragment.navController
+
 
         //react to button push in the bottom navigation using the controller
         bottomNav.setOnItemSelectedListener {
@@ -49,5 +57,6 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
     }
 }
